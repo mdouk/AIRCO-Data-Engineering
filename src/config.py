@@ -4,11 +4,13 @@ Only the local, disposable container is referenced here — never AIRCO producti
 After running discover.py, set MANDANT_DB and confirm the table names below.
 """
 
+import os
+
 # --- Local SQL Server container (from docker-compose.yml) ---
 HOST = "localhost"
 PORT = 14330
 USER = "sa"
-PASSWORD = "Sage_Dev_2026!"  # local-only dev password
+PASSWORD = os.environ.get("MSSQL_SA_PASSWORD", "")
 
 # Connect to 'master' for restore/discovery; to the Mandant DB for extraction.
 SYSTEM_DB = "master"

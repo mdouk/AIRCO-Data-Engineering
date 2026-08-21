@@ -6,11 +6,11 @@ services:
     container_name: sage-mssql
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Sage_Dev_2026!"   # local-only, never a real credential
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
       MSSQL_PID: "Developer"
       MSSQL_MEMORY_LIMIT_MB: "8192"         # cap SQL Server so it can't OOM-kill the container
     ports:
-      - "14330:1433"                        # host 14330 -> container 1433 (avoids clashes)
+      - "127.0.0.1:14330:1433"             # localhost only — do not expose to LAN
     volumes:
       - ./restore:/var/opt/mssql/backup     # drop the .bak here; visible inside the container
       - mssql-data:/var/opt/mssql           # persisted restored DB

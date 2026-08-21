@@ -1,3 +1,6 @@
+# Secrets — never commit
+.env
+
 # Never commit client data or dumps
 restore/*.bak
 restore/*.zip
