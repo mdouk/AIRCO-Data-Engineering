@@ -1,0 +1,17 @@
+# Never commit client data or dumps
+restore/*.bak
+restore/*.zip
+restore/*.7z
+output/
+*.xlsx
+*.sqlite
+*.db
+
+# Local temp / extraction artifacts
+*_unpacked/
+*.txt
+
+# Python
+__pycache__/
+*.pyc
+.venv/

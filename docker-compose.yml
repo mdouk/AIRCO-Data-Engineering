@@ -1,0 +1,18 @@
+# Disposable SQL Server for restoring the Sage 100 backup.
+# Nothing here connects to AIRCO production. Tear down with: docker compose down -v
+services:
+  sage-mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sage-mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Sage_Dev_2026!"   # local-only, never a real credential
+      MSSQL_PID: "Developer"
+      MSSQL_MEMORY_LIMIT_MB: "8192"         # cap SQL Server so it can't OOM-kill the container
+    ports:
+      - "14330:1433"                        # host 14330 -> container 1433 (avoids clashes)
+    volumes:
+      - ./restore:/var/opt/mssql/backup     # drop the .bak here; visible inside the container
+      - mssql-data:/var/opt/mssql           # persisted restored DB
+volumes:
+  mssql-data:
